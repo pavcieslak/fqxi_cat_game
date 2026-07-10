@@ -3,7 +3,7 @@ Simple dev server that serves this folder at /fqxi/ with live-reload injection.
 Usage:  python serve.py
 Then open: http://localhost:3000/fqxi/
 """
-import os, sys, time, threading, hashlib, socketserver
+import os, hashlib, socketserver
 from http.server import SimpleHTTPRequestHandler
 from pathlib import Path
 
@@ -85,7 +85,8 @@ class Handler(SimpleHTTPRequestHandler):
 
     def log_message(self, fmt, *args):
         # Suppress noisy livereload poll requests
-        if "/__livereload__" not in args[0]:
+        request_path = str(args[0]) if args else ""
+        if "/__livereload__" not in request_path:
             super().log_message(fmt, *args)
 
 class ThreadedServer(socketserver.ThreadingTCPServer):

@@ -1,0 +1,29 @@
+export const PHYSICS_CONFIG = {
+  CANVAS_WIDTH: 1280,
+  CANVAS_HEIGHT: 720,
+  TANK_TOP_OFFSET: 200,
+  TANK_MARGIN_LEFT: 150,
+  TANK_MARGIN_RIGHT: 80,
+  TANK_BOTTOM_PADDING: 40,
+  GATE_WIDTH_L1: 0,
+  GATE_WIDTH_L2: 200,
+  GATE_THICKNESS: 18,
+  DOOR_HEIGHT_RATIO: 0.25,
+  WALL_DAMPING: 0.02,
+  WALL_RANGE: 286,
+  WIN_THRESHOLD: 320,
+  GAME_DURATION: 180,
+};
+
+export const PARTICLE_RULES = {
+  SINGLE_GATE: {
+    radius: 35,
+    speedRed: 7,
+    speedBlue: 4,
+  },
+  DOUBLE_GATE: {
+    radius: 35,
+    speedRed: 7.5,
+    speedBlue: 5,
+  },
+};
