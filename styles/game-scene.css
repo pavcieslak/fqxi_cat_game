@@ -1,0 +1,197 @@
+/*
+ * In-game scene styling: sky background, clouds, clock/timer and top HUD.
+ * Loaded after index.css (see index.html). Edit the variables below first.
+ *
+ * Markup lives in app.js:
+ *   .scene-background, .scene-clouds  - layers behind the SVG game area
+ *   .game-hud, .hud-column, .hud-center-column, .level-indicator - top bar
+ *   .clock-timer, .clock-number       - countdown clock (turns .danger at 30s or less)
+ *
+ * Images: clouds -> assets/static/clouds2.png, clock face -> assets/static/timer_bg.png,
+ * sky picture -> assets/images/bg_img.png. Replace those files to change the art.
+ */
+
+:root {
+  /* Distance of corner controls (music, menu, etc.) from the screen edge, on every screen. */
+  --ui-edge-offset: 12px;
+
+  /* Sky: transparent at the top so the picture shows through, tinted blue at the bottom. */
+  --scene-sky-image: url(/fqxi/assets/images/bg_img.png);
+  --scene-sky-top: rgba(255,255,255,.9);
+  --scene-sky-bottom: rgba(95, 163, 232, 0.8);
+
+  /* Clouds */
+  --scene-clouds-top: 5%;
+  --scene-clouds-height: 400px;
+  --scene-clouds-opacity: 0.5;
+  --scene-clouds-speed: 120s;
+  --scene-clouds-tile-width: 1200px;
+
+  /* Clock */
+  --clock-number-font-size: 2.25rem;
+  --clock-number-font-weight: 700;
+  --clock-number-color: #000;
+  --clock-number-color-danger: #ef4444;
+  --clock-number-font-family: "Poppins", sans-serif;
+  --clock-number-shadow: none;
+  --clock-number-shadow-danger: 0 0 8px rgba(239, 68, 68, 0.6);
+  --clock-width: 5rem;
+  --clock-height: 5rem;
+  --clock-width-md: 7rem;
+  --clock-height-md: 7rem;
+}
+
+/* ---------- Sky background ---------- */
+
+.scene-background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: linear-gradient(to bottom, var(--scene-sky-top) 0%, var(--scene-sky-bottom) 100%), var(--scene-sky-image);
+  background-size: 100% 100%, cover;
+  background-position: 0 0, center;
+  background-repeat: no-repeat, no-repeat;
+  z-index: 0;
+}
+
+/* ---------- Clouds ---------- */
+
+.scene-clouds {
+  position: absolute;
+  top: var(--scene-clouds-top);
+  left: 0;
+  width: 100%;
+  height: var(--scene-clouds-height);
+  opacity: var(--scene-clouds-opacity);
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Scroll with transform (GPU-composited) instead of animating background-position,
+   which repaints the whole layer every frame and competes with the particle canvas. */
+.scene-clouds::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--scene-clouds-tile-width) * -1);
+  width: calc(100% + var(--scene-clouds-tile-width));
+  background-image: inherit;
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  animation: moveClouds var(--scene-clouds-speed) linear infinite;
+  will-change: transform;
+}
+
+/* The end offset must equal one cloud tile's rendered width for a seamless loop. */
+@keyframes moveClouds {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(var(--scene-clouds-tile-width), 0, 0); }
+}
+
+/* ---------- Clock / timer ---------- */
+
+.clock-timer {
+  position: relative;
+  width: var(--clock-width);
+  height: var(--clock-height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  box-shadow: 0 10px 15px -3px #0003;
+  transition: all .5s duration;
+  background: #fff;
+}
+
+@media (min-width: 768px) {
+  .clock-timer { width: var(--clock-width-md); height: var(--clock-height-md); }
+}
+
+@media (min-width: 1024px) {
+  .clock-timer { width: 9rem; height: 9rem; }
+}
+
+@media (max-height: 420px) and (orientation: landscape) {
+  .clock-timer { width: 3.5rem; height: 3.5rem; }
+  .clock-number { font-size: calc(var(--clock-number-font-size) * .8); }
+}
+
+.clock-timer.danger {
+  transform: scale(1.05);
+}
+
+.clock-number {
+  font-size: var(--clock-number-font-size);
+  font-weight: var(--clock-number-font-weight);
+  font-family: var(--clock-number-font-family);
+  color: var(--color-black);
+  text-shadow: var(--clock-number-shadow);
+  z-index: 10;
+  position: relative;
+  transition: all .3s duration;
+  white-space: nowrap;
+}
+
+.clock-timer.danger .clock-number {
+  color: var(--clock-number-color-danger);
+  text-shadow: var(--clock-number-shadow-danger);
+}
+
+@media (min-width: 768px) {
+  .clock-number { font-size: calc(var(--clock-number-font-size) * 1.67); }
+}
+
+/* ---------- Top HUD ---------- */
+
+.game-hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: var(--ui-edge-offset);
+  pointer-events: auto;
+  z-index: 50;
+}
+
+/* Menu/briefing music toggle (rule originates in index.css) shares the same offset. */
+.branded-music-toggle {
+  top: var(--ui-edge-offset);
+  left: var(--ui-edge-offset);
+}
+
+.hud-column {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  pointer-events: auto;
+}
+
+.hud-center-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.level-indicator {
+  background-color: #0000004d;
+  color: #ffffff80;
+  font-size: .75rem;
+  padding: .25rem .75rem;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  font-weight: 700;
+  margin-top: .5rem;
+}
+
+.hud-tooltip,
+.control-tooltip {
+  display: none;
+}
