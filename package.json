@@ -12,10 +12,10 @@
   },
   "license": "ISC",
   "author": "",
-  "type": "commonjs",
+  "type": "module",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node --test",
     "dev": "python3 serve.py",
     "validate:assets": "node scripts/validate-assets.mjs",
     "verify:gameplay": "node scripts/verify-gameplay.mjs"

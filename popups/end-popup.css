@@ -1,0 +1,49 @@
+/* End-game (win / lose) popup. Tweak the variables, or restyle freely. */
+.modern-popup {
+  --popup-max-width: 800px;
+  --popup-radius: 1rem;
+  --btn-bg: #764c8d;
+  --btn-bg-hover: #633f78;
+  --btn-color: #fff;
+  --buttons-left: 8%;
+  --buttons-gap: 1rem;
+  --share-right: 3%;
+  --share-bottom: 2%;
+
+  background-color: #fff;
+  border-radius: var(--popup-radius);
+  overflow: hidden;
+  max-width: var(--popup-max-width);
+  width: 100%;
+  box-shadow: 0 25px 50px -12px #0006;
+}
+
+.modern-popup-body { position: relative; width: 100%; background-color: #e5e5e5; }
+.modern-popup-bg { display: block; width: 100%; height: auto; object-fit: cover; }
+
+.modern-overlay-buttons {
+  position: absolute; top: 50%; left: var(--buttons-left); transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: var(--buttons-gap); z-index: 2;
+}
+
+.btn-modern-overlay {
+  background-color: var(--btn-bg); color: var(--btn-color);
+  font-family: Poppins, sans-serif; font-size: 1.5rem;
+  padding: .75rem 1.5rem; min-width: 220px; min-height: 48px;
+  border: none; border-radius: 2px; cursor: pointer; text-align: center;
+  box-shadow: 0 4px 6px #0003; transition: transform .1s, background-color .2s;
+}
+.btn-modern-overlay:hover { background-color: var(--btn-bg-hover); transform: translateY(-2px); }
+.btn-modern-overlay:active { transform: translateY(0); }
+
+.popup-share {
+  position: absolute; right: var(--share-right); bottom: var(--share-bottom);
+  display: flex; align-items: center; gap: .5rem; z-index: 2;
+  font-family: Poppins, sans-serif; font-weight: 600;
+}
+.popup-share-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 2rem; height: 2rem; border-radius: 50%;
+  background: var(--btn-bg); color: #fff; text-decoration: none;
+}
+.popup-share-link:hover { background: var(--btn-bg-hover); }

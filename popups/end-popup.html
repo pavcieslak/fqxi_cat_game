@@ -1,0 +1,49 @@
+<!--
+  Edit freely: layout, buttons, social icons.
+  Buttons use data-action="restart|next|menu". "next" is auto-hidden on the last level / after a loss.
+  [data-next-label] is filled with Two/Three/Four. Styling lives in end-popup.css.
+-->
+<template id="popup-win">
+
+  <div class="modern-popup-body">
+
+    <img class="modern-popup-bg" src="/fqxi/assets/static/end_splash_winner.png" alt="Victory" />
+    
+    <div class="modern-overlay-buttons">
+      <button class="btn-modern-overlay" data-action="restart">Restart</button>
+      <button class="btn-modern-overlay" data-action="next">Level <span data-next-label></span></button>
+      <button class="btn-modern-overlay" data-action="menu">Menu</button>
+    </div>
+
+    <div class="popup-share">
+      <span class="popup-share-label">Share with friends on Social Media:</span>
+      <a class="popup-share-link" target="_blank" rel="noreferrer" aria-label="Share on X"
+         href="https://twitter.com/intent/tweet?text=I%20mastered%20entropy%20in%20Maxwell%27s%20Cat!%20%23PhysicsGame">X</a>
+      <a class="popup-share-link" target="_blank" rel="noreferrer" aria-label="Share on Facebook"
+         href="https://www.facebook.com/sharer/sharer.php?u=https://maxwellscat.game">f</a>
+      <a class="popup-share-link" target="_blank" rel="noreferrer" aria-label="Share on LinkedIn"
+         href="https://www.linkedin.com/sharing/share-offsite/?url=https://maxwellscat.game">in</a>
+    </div>
+    
+  </div>
+
+</template>
+
+<template id="popup-lose">
+  <div class="modern-popup-body">
+    <img class="modern-popup-bg" src="/fqxi/assets/static/end_splash_looser.png" alt="Game Over" />
+    <div class="modern-overlay-buttons">
+      <button class="btn-modern-overlay" data-action="restart">Restart</button>
+      <button class="btn-modern-overlay" data-action="menu">Menu</button>
+    </div>
+    <div class="popup-share">
+      <span class="popup-share-label">Share with friends on Social Media:</span>
+      <a class="popup-share-link" target="_blank" rel="noreferrer" aria-label="Share on X"
+         href="https://twitter.com/intent/tweet?text=Try%20Maxwell%27s%20Cat!%20%23PhysicsGame">X</a>
+      <a class="popup-share-link" target="_blank" rel="noreferrer" aria-label="Share on Facebook"
+         href="https://www.facebook.com/sharer/sharer.php?u=https://maxwellscat.game">f</a>
+      <a class="popup-share-link" target="_blank" rel="noreferrer" aria-label="Share on LinkedIn"
+         href="https://www.linkedin.com/sharing/share-offsite/?url=https://maxwellscat.game">in</a>
+    </div>
+  </div>
+</template>
